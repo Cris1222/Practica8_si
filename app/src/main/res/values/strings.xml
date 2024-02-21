@@ -1,0 +1,5 @@
+<resources>
+    <string name="welcome">Welcome to Popcorn Factory, home of the best series and movies.
+            Just lay down, make some popcorn and ejoy!</string>
+    <string name="getMeIn">GET ME IN!</string>
+</resources>
