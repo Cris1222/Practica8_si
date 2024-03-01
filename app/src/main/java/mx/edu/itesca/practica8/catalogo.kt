@@ -1,5 +1,4 @@
 package mx.edu.itesca.practica8
-
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +10,8 @@ import android.widget.BaseAdapter
 import android.widget.GridView
 import android.widget.ImageView
 import android.widget.TextView
-
+import android.widget.Toast
 class catalogo : AppCompatActivity() {
-
     var adapter: PeliculaAdapter? = null
     var seriesAdapter: PeliculaAdapter? =null
     var peliculas=ArrayList<Pelicula>()
@@ -192,7 +190,6 @@ class catalogo : AppCompatActivity() {
             this.peliculas=peliculas
             this.context=context
         }
-
         override fun getCount(): Int {
             return peliculas.size
         }
@@ -202,26 +199,24 @@ class catalogo : AppCompatActivity() {
         override fun getItemId(p0: Int): Long {
             return p0.toLong()
         }
-
         override fun getView(pe: Int, p1:View?, p2:ViewGroup?): View {
             var pelicula=peliculas[pe]
-            var inflator=context!!.getSystemService(
-                Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            var inflator=context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             var vista=inflator.inflate(R.layout.peliculas, null)
             var image: ImageView=vista.findViewById(R.id.image_movie_cell)
             var title: TextView=vista.findViewById(R.id.movie_title_cell)
+
             image.setImageResource(pelicula.image)
             title.setText(pelicula.titulo)
-
+            //oast.makeText(context, "Boletos:" +(20-pelicula.seats.size), Toast.LENGTH_LONG).show()
             image.setOnClickListener(){
-                val intento = Intent (context,
-                    detalle_pelicula::class.java)
+                val intento = Intent (context,detalle_pelicula::class.java)
+                val c = SeatSelection()
                 intento.putExtra( "titulo", pelicula.titulo)
                 intento.putExtra( "imagen", pelicula.image)
                 intento.putExtra( "header", pelicula.header)
                 intento.putExtra( "sinopsis", pelicula.sinopsis)
-                intento.putExtra("numberSeats",
-                    (20-pelicula.seats.size))
+                intento.putExtra("seats",((20-pelicula.seats.size)).toString())
                 context!!.startActivity(intento)
             }
             return vista
